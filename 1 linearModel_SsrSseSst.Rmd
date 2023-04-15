@@ -1,0 +1,335 @@
+---
+title: "Lab Assignment 1"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+- Jajapuram Giridhar Reddy, 20BRS1004
+
+## Question 1
+x 0.01  0.48  0.71  0.95  1.19  0.01  0.48  1.44  0.71  1.96
+
+y 127.6 124   110.8 103.9 101.5 130   122   92.3  113   83.7
+
+- Table creation
+```{r}
+df <- data.frame(x = c(0.01, 0.48, 0.71, 0.95, 1.19, 0.01, 0.48, 1.44, 0.71, 1.96),
+                 y = c(127.6, 124, 110.8, 103.9, 101.5, 130, 122, 92.3, 113, 83.7))
+df
+```
+
+- Linear model
+```{r}
+reg <- lm(df$x~df$y)
+reg
+```
+
+```{r}
+summary(reg)
+```
+
+- call, residual, coefficient, f statistics and p value
+```{r}
+#call
+reg$call
+```
+
+```{r}
+#residuals
+reg$residuals
+```
+
+```{r}
+#coefficients
+reg$coefficients
+```
+
+```{r}
+#r squared
+summary(reg)$r.squared
+```
+
+```{r}
+#f statistic 
+summary(reg)$fstatistic
+```
+
+```{r}
+#P value
+pval <- anova(reg)$'Pr(>F)'[1]
+pval
+```
+
+- SSR, SST, R squared, MSE, and RMSE
+```{r}
+sse <- sum((fitted(reg) - df$x)^2)
+sse
+# SSR
+ssr <- sum((fitted(reg)  - mean(df$x))^2)
+ssr
+# SST
+sst <- sse+ssr
+sst
+# R squared
+r2 <- ssr/sst
+r2
+# MSE
+mse <- mean((df$x - df$y)^2)
+mse
+# RMSE
+rmse <- sqrt(mse)
+rmse
+```
+
+- Plotting the regression line
+```{r}
+plot(df$x,df$y)
+abline(lm(df$y~df$x), col='blue')
+```
+
+### Inference
+The r-squared value is approximately 0.967 which means that there is 96.7% variation which can be said as the regression model is fitting well with the observed data, which can also be said as the data points would be much more closer to the regression line.
+
+## Question 2
+x1    95.2    85.1    80.6    70.5    60.2    70.2    75.1
+
+x2    88.1    76.5    79.2    85.4    90.2    74.3    67.7
+
+y     85.9    95.2    70.3    65.4    70.5    66.0    71.1
+
+- Table creation
+```{r}
+df1 <- data.frame(x1 = c(95.2, 85.1, 80.6, 70.5, 60.2, 70.2, 75.1),
+                 x2 = c(88.1, 76.5, 79.2, 85.4, 90.2, 74.3, 67.7),
+                 y  = c(85.9, 95.2, 70.3, 65.4, 70.5, 66.0, 71.1))
+df1
+```
+
+- Linear model for x1
+```{r}
+reg1 <- lm(df1$x1~df1$y)
+reg1
+```
+
+```{r}
+summary(reg1)
+```
+
+- call, residual, coefficient, f statistics and p value
+```{r}
+#call
+reg1$call
+```
+
+```{r}
+#residuals
+reg1$residuals
+```
+
+```{r}
+#coefficients
+reg1$coefficients
+```
+
+```{r}
+#r squared
+summary(reg1)$r.squared
+```
+
+```{r}
+#f statistic 
+summary(reg1)$fstatistic
+```
+
+```{r}
+#P value
+pval1 <- anova(reg1)$'Pr(>F)'[1]
+pval1
+```
+
+- SSR, SST, R squared, MSE and RMSE values
+```{r}
+sse1 <- sum((fitted(reg1) - df1$x1)^2)
+sse1
+# SSR
+ssr1 <- sum((fitted(reg1) - mean(df1$x1))^2)
+ssr1
+# SST
+sst1 <- sse1+ssr1
+sst1
+# R squared
+rsqu1 <- ssr1/sst1
+rsqu1
+# MSE
+mse1 <- mean((df1$x1 - df1$y)^2)
+mse1
+# RMSE
+rmse1 <- sqrt(mse1)
+rmse1
+```
+
+- Plotting the regression line
+```{r}
+plot(df1$x1,df1$y)
+abline(lm(df1$y~df1$x1), col='blue')
+```
+
+- Regression line for x2
+```{r}
+reg2 <- lm(df1$x2~df1$y)
+reg2
+```
+
+```{r}
+summary(reg2)
+```
+
+- call, residual, coefficient, f statistics and p value
+```{r}
+#call
+reg2$call
+```
+
+```{r}
+#residuals
+reg2$residuals
+```
+
+```{r}
+#coefficients
+reg2$coefficients
+```
+
+```{r}
+#r squared
+summary(reg2)$r.squared
+```
+
+```{r}
+#f statistic 
+summary(reg2)$fstatistic
+```
+
+```{r}
+#P value
+pval2 <- anova(reg2)$'Pr(>F)'[1]
+pval2
+```
+
+- SSR, SST, R squared, MSE and RMSE
+```{r}
+sse2 <- sum((fitted(reg2) - df1$x2)^2)
+sse2
+# SSR
+ssr2 <- sum((fitted(reg2) - mean(df1$x2))^2)
+ssr2
+# SST
+sst2 <- sse2+ssr2
+sst2
+# R squared
+rsqu2 <- ssr2/sst2
+rsqu2
+# MSE
+mse2 <- mean((df1$x2 - df1$y)^2)
+mse2
+# RMSE
+rmse2 <- sqrt(mse2)
+rmse2
+```
+
+- Plotting the regression line
+```{r}
+plot(df1$x2,df1$y)
+abline(lm(df1$y~df1$x2), col='blue')
+```
+
+### Inference
+For the model constructed between x1 and y, the r-squared value is approximately 0.5125 which is 51.25% variation which can be inferred as the regression model is moderately fitted for the observed data and also can be said as the data points are a bit far from the regression line
+
+Where as for the model constructed between x2 and y, the r-squared value is approximately 0.00177 which is 0.177% (low variation) variation which can be inferred as the data points are far from the regression line and further can be understood that the variables considered are independent of each other. 
+
+So the model 1 constructed between x1 and y shows a good relationship when compared to model 2 which is constructed between x2 and y
+
+## Question 3
+Dataset: tvmarketing.csv
+
+- Importing csv file
+```{r}
+df2 <- read.csv('./tvmarketing.csv')
+head(df2)
+```
+
+- Regression line
+```{r}
+reg3 <- lm(df2$TV~df2$Sales)
+reg3
+```
+
+```{r}
+summary(reg3)
+```
+
+- call, residual, coefficient, f statistics and p value
+```{r}
+#call
+reg3$call
+```
+
+```{r}
+#residuals
+reg3$residuals
+```
+
+```{r}
+#coefficients
+reg3$coefficients
+```
+
+```{r}
+#r squared
+summary(reg3)$r.squared
+```
+
+```{r}
+#f statistic 
+summary(reg3)$fstatistic
+```
+
+```{r}
+#P value
+pval3 <- anova(reg3)$'Pr(>F)'[1]
+pval3
+```
+
+- SSR, SST, R squared, MSE and RMSE values
+```{r}
+sse3 <- sum((fitted(reg3) - df2$TV)^2)
+sse3
+# SSR
+ssr3 <- sum((fitted(reg3) - mean(df2$TV))^2)
+ssr3
+# SST
+sst3 <- sse3+ssr3
+sst3
+# R squared
+rsqu3 <- ssr3/sst3
+rsqu3
+# MSE
+mse3 <- mean((df2$TV - df2$Sales)^2)
+mse3
+# RMSE
+rmse3 <- sqrt(mse3)
+rmse3
+```
+
+- Plotting the regression line
+```{r}
+plot(df2$TV,df2$Sales)
+abline(lm(df2$Sales~df2$TV), col='blue')
+```
+
+### Inference
+The r-squared value is approximately 0.612 which means that there is 61.2% variation which can be said as for the observed data the model built is moderately fit, which can also be said as some of the data points would be a bit far to the regression line.
